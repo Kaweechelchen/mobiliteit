@@ -6,11 +6,26 @@ This tool helps you to just get back the json that mobiliteit.lu should give you
 
 ##API
 - **[<code>GET</code> STATIONID/:amount](https://mobiliteit.herokuapp.com/200405036/5)**
+- **[<code>GET</code> clean/STATIONID/:amount](https://mobiliteit.herokuapp.com/clean/200405036/5)**
+
+##Usage
+
+- Using **[<code>GET</code> clean/STATIONID/:amount](https://mobiliteit.herokuapp.com/clean/200405036/5)** is exporting the JSON retrieved from mobiliteit.lu in a formatted way.
+- stationName is returning the name of the station you requested information for
+- journeys is going to return the next busses to depart at this station
+
+every journey is going to include the following information:
+- <code>timestamp</code> the unix timestamp of the departure
+- <code>line</code> the line number of the bus
+- <code>destination</code> the destination of the bus
+- <code>delay</code> the delay that this departure has according to the schedule
 
 ## Example
 
     https://mobiliteit.herokuapp.com/200405036
     https://mobiliteit.herokuapp.com/200405036/5
+    https://mobiliteit.herokuapp.com/clean/200405036
+    https://mobiliteit.herokuapp.com/clean/200405036/5
 
 ##Installation on your own heroku instance
 

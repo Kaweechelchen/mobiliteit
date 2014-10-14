@@ -12,7 +12,8 @@
             $mobilityData = file_get_contents( 'http://travelplanner.mobiliteit.lu/hafas/cdt/stboard.exe/en?L=vs_stb&input=' . $stationId . '&boardType=dep&time=' . date( "H:i" ) . '&selectDate=today&start=yes&requestType=0&maxJourneys=' . $limit ) ;
 
             $mobilityData = json_decode(
-                substr( $mobilityData, 14 )
+                substr( $mobilityData, 14 ),
+                true
             );
 
             return $mobilityData;
@@ -28,6 +29,74 @@
                 return 'you need to provide a satation id. Example: <a href="https://mobiliteit.herokuapp.com/200405036">https://mobiliteit.herokuapp.com/200405036</a>';
 
             });
+
+            $ctr->get( '/clean/', function( Application $app ) {
+
+                return 'you need to provide a satation id. Example: <a href="https://mobiliteit.herokuapp.com/pretty/200405036">https://mobiliteit.herokuapp.com/pretty/200405036</a>';
+
+            });
+
+            $ctr->get( '/clean/{stationId}/{limit}', function( Application $app, $stationId, $limit ) {
+
+                $data = self::mobilityData(
+                    $app,
+                    $stationId,
+                    $limit
+                );
+
+                $busses = array( 'stationName' => html_entity_decode ( $data[ 'stationName' ] ) );
+
+                foreach ($data[ 'journey' ] as $journey ) {
+
+                    unset( $bus );
+
+                    $date = 20  . substr( $journey[ 'da' ], 6, 2)
+                        . '-' . substr( $journey[ 'da' ], 3, 2)
+                        . '-' . substr( $journey[ 'da' ], 0, 2);
+
+                    if ( $journey[ 'rt' ] ) {
+
+                        $time = $journey[ 'rt' ][ 'dlt' ];
+                        $delay = strtotime(
+                            $date . ' ' . $time
+                        ) - strtotime(
+                            $date . ' ' . $journey[ 'ti' ]
+                        );
+
+                    } else {
+
+                        $time = $journey[ 'ti' ];
+                        $delay = 0;
+
+                    }
+
+                    $bus[ 'timestamp' ] = strtotime(
+                        $date . ' ' . $time
+                    );
+
+                    $bus[ 'line' ] = $journey[ 'ln' ];
+                    $bus[ 'destination' ] = html_entity_decode ( $journey[ 'st' ] );
+                    $bus[ 'delay' ] = $delay;
+
+                    $bussesArray[ $bus[ 'timestamp' ] ][] = $bus;
+
+                }
+
+                ksort( $bussesArray );
+
+                foreach ( $bussesArray as $busesInArray ) {
+
+                    foreach ( $busesInArray as $bus ) {
+
+                        $busses[ 'journeys' ][] = $bus;
+
+                    }
+
+                }
+
+                return $app->json( $busses );
+
+            })->value('limit', 10);
 
             $ctr->get( '/{stationId}/{limit}', function( Application $app, $stationId, $limit ) {
 
