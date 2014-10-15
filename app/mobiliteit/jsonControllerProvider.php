@@ -26,17 +26,11 @@
 
             $ctr->get( '/', function( Application $app ) {
 
-                return 'you need to provide a satation id. Example: <a href="https://mobiliteit.herokuapp.com/200405036">https://mobiliteit.herokuapp.com/200405036</a>';
+                return 'you need to provide a satation id. Example: <a href="https://mobiliteit.herokuapp.com/api/1/200405036">https://mobiliteit.herokuapp.com/api/1/200405036</a>';
 
             });
 
-            $ctr->get( '/clean/', function( Application $app ) {
-
-                return 'you need to provide a satation id. Example: <a href="https://mobiliteit.herokuapp.com/pretty/200405036">https://mobiliteit.herokuapp.com/pretty/200405036</a>';
-
-            });
-
-            $ctr->get( '/clean/{stationId}/{limit}', function( Application $app, $stationId, $limit ) {
+            $ctr->get( '/{stationId}/{limit}', function( Application $app, $stationId, $limit ) {
 
                 $data = self::mobilityData(
                     $app,
@@ -44,7 +38,7 @@
                     $limit
                 );
 
-                $busses = array( 'stationName' => html_entity_decode ( $data[ 'stationName' ] ) );
+                $busses[ 'stationName' ] = html_entity_decode ( $data[ 'stationName' ] );
 
                 foreach ($data[ 'journey' ] as $journey ) {
 
@@ -70,12 +64,11 @@
 
                     }
 
-                    $bus[ 'timestamp' ] = strtotime(
+                    $bus[ 'line' ] = (int) $journey[ 'ln' ];
+                    $bus[ 'destination' ] = html_entity_decode ( $journey[ 'st' ] );
+                    $bus[ 'departure' ] = strtotime(
                         $date . ' ' . $time
                     );
-
-                    $bus[ 'line' ] = $journey[ 'ln' ];
-                    $bus[ 'destination' ] = html_entity_decode ( $journey[ 'st' ] );
                     $bus[ 'delay' ] = $delay;
 
                     $bussesArray[ $bus[ 'timestamp' ] ][] = $bus;
@@ -95,18 +88,6 @@
                 }
 
                 return $app->json( $busses );
-
-            })->value('limit', 10);
-
-            $ctr->get( '/{stationId}/{limit}', function( Application $app, $stationId, $limit ) {
-
-                return $app->json(
-                    self::mobilityData(
-                        $app,
-                        $stationId,
-                        $limit
-                    )
-                );
 
             })->value('limit', 10);
 

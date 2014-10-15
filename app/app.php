@@ -9,7 +9,11 @@
 
     $app[ 'debug' ] = true;
 
-    $app->mount( '/', new mobiliteit\jsonControllerProvider() );
+    $app->mount( '/api/1/', new mobiliteit\jsonControllerProvider() );
+
+    $app->get('/', function () use ( $app ) {
+        return $app->redirect('/api/1/');
+    });
 
     $app->after(function (Request $request, Response $response) {
 
