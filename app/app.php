@@ -1,5 +1,7 @@
 <?php
 
+    // Thierry Degeling [@Kaweechelchen]
+
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
 

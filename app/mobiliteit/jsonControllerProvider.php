@@ -1,5 +1,7 @@
 <?php
 
+    // Thierry Degeling [@Kaweechelchen]
+
     namespace mobiliteit;
 
     use Silex\Application;
