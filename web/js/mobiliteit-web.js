@@ -23,8 +23,6 @@ $(function() {
 
                     $('.stations').html( stations );
 
-                    console.log( $('.searchString').val() );
-
                 }
 
             });
