@@ -13,7 +13,7 @@ every journey is going to include the following information:
 - <code>destination</code> the destination of the bus
 - <code>delay</code> the delay that this departure has according to the schedule
 
-## Example
+## Examples
 
     https://mobiliteit.herokuapp.com/api/1/200405036
     https://mobiliteit.herokuapp.com/api/1/200405036/5
