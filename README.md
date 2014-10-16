@@ -5,12 +5,11 @@ Gathering bus information from a specific station in Luxembourg is hard
 This tool helps you to just get back the json that mobiliteit.lu should give you back
 
 ##API
-- **[<code>GET</code> STATIONID/:amount](https://mobiliteit.herokuapp.com/200405036/5)**
-- **[<code>GET</code> clean/STATIONID/:amount](https://mobiliteit.herokuapp.com/clean/200405036/5)**
+- **[<code>GET</code> api/1/STATIONID/:amount](https://mobiliteit.herokuapp.com/api/1/200405036/5)**
 
 ##Usage
 
-- Using **[<code>GET</code> clean/STATIONID/:amount](https://mobiliteit.herokuapp.com/clean/200405036/5)** is exporting the JSON retrieved from mobiliteit.lu in a formatted way.
+- Using **[<code>GET</code> api/1/STATIONID/:amount](https://mobiliteit.herokuapp.com/api/1/200405036/5)** is exporting the JSON retrieved from mobiliteit.lu in a formatted way.
 - stationName is returning the name of the station you requested information for
 - journeys is going to return the next busses to depart at this station
 
@@ -22,10 +21,8 @@ every journey is going to include the following information:
 
 ## Example
 
-    https://mobiliteit.herokuapp.com/200405036
-    https://mobiliteit.herokuapp.com/200405036/5
-    https://mobiliteit.herokuapp.com/clean/200405036
-    https://mobiliteit.herokuapp.com/clean/200405036/5
+    https://mobiliteit.herokuapp.com/api/1/200405036
+    https://mobiliteit.herokuapp.com/api/1/200405036/5
 
 ##Installation on your own heroku instance
 
