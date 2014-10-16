@@ -11,7 +11,16 @@
 
         static public function mobilityData ( $app, $stationId, $limit ) {
 
-            $mobilityData = file_get_contents( 'http://travelplanner.mobiliteit.lu/hafas/cdt/stboard.exe/en?L=vs_stb&input=' . $stationId . '&boardType=dep&time=' . date( "H:i" ) . '&selectDate=today&start=yes&requestType=0&maxJourneys=' . $limit ) ;
+            $mobilityData = file_get_contents(
+                'http://travelplanner.mobiliteit.lu/'
+                . 'hafas/cdt/stboard.exe/en?L=vs_stb'
+                . '&boardType=dep'
+                . '&selectDate=today&'
+                . 'start=yes'
+                . '&requestType=0'
+                . '&input=' . $stationId
+                . '&time=' . date( "H:i" )
+                . '&maxJourneys=' . $limit );
 
             $mobilityData = json_decode(
                 substr( $mobilityData, 14 ),
