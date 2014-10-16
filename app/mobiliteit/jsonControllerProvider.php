@@ -26,7 +26,7 @@
 
             $ctr->get( '/', function( Application $app ) {
 
-                return 'you need to provide a satation id. Example: <a href="https://mobiliteit.herokuapp.com/api/1/200405036">https://mobiliteit.herokuapp.com/api/1/200405036</a>';
+                return 'you need to provide a station id. Example: <a href="https://mobiliteit.herokuapp.com/api/1/200405036">https://mobiliteit.herokuapp.com/api/1/200405036</a>';
 
             });
 
