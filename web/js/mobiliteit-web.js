@@ -13,7 +13,7 @@ $(function() {
                     break
 
                 case 'https:':
-                    namesAPI = 'http://getcontents.herokuapp.com/?url=http%3A%2F%2Fwww.mobiliteit.lu%2Fhafassuggest.php%3Fq%3D';
+                    namesAPI = 'https://getcontents.herokuapp.com/?url=http%3A%2F%2Fwww.mobiliteit.lu%2Fhafassuggest.php%3Fq%3D';
                     break;
 
             }
