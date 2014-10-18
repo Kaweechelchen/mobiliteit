@@ -6,9 +6,21 @@ $(function() {
         var val = this.value;
         timer = setTimeout(function() {
 
+            switch ( location.protocol ) {
+
+                case 'http:':
+                    namesAPI = 'http://www.mobiliteit.lu/hafassuggest.php?q=';
+                    break
+
+                case 'https:':
+                    namesAPI = 'http://getcontents.herokuapp.com/?url=http%3A%2F%2Fwww.mobiliteit.lu%2Fhafassuggest.php%3Fq%3D';
+                    break;
+
+            }
+
             var request = $.ajax({
                 type: 'get',
-                url: 'http://www.mobiliteit.lu/hafassuggest.php?q=' + $('.searchString').val(),
+                url: namesAPI + $('.searchString').val(),
                 complete: function( response ) {
 
                     stationsJSON = JSON.parse( response.responseText );
