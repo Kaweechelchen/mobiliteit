@@ -6,17 +6,7 @@ $(function() {
         var val = this.value;
         timer = setTimeout(function() {
 
-            switch ( location.protocol ) {
-
-                case 'http:':
-                    namesAPI = 'http://www.mobiliteit.lu/hafassuggest.php?q=';
-                    break
-
-                case 'https:':
-                    namesAPI = 'https://getcontents.herokuapp.com/?url=http%3A%2F%2Fwww.mobiliteit.lu%2Fhafassuggest.php%3Fq%3D';
-                    break;
-
-            }
+            namesAPI = 'https://getcontents.herokuapp.com/?url=http%3A%2F%2Fwww.mobiliteit.lu%2Fhafassuggest.php%3Fq%3D';
 
             var request = $.ajax({
                 type: 'get',
