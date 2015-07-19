@@ -28,7 +28,7 @@
                 . '&start=yes'
                 . '&requestType=0'
                 . '&input=' . $stationId
-                . '&time=' . date( "H:i" )
+                . '&time=now'
                 . '&maxJourneys=' . $limit );
 
             // Removing the random string in front of the json which
