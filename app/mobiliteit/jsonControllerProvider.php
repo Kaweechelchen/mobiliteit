@@ -100,10 +100,21 @@
                         // time the bus is actually going to leave.
                         $time = $journey[ 'rt' ][ 'dlt' ];
 
-                        // We'll also set the delay information to the delay the
-                        // bus is experiencing in seconds
-                        $delay = strtotime( $date . ' ' . $time )
-                               - strtotime( $date . ' ' . $journey[ 'ti' ] );
+                        if ( $time == null ) {
+
+                            // If there's no delay, just return the departure time
+                            // from mobiliteit.lu
+                            $time = $journey[ 'ti' ];
+                            $delay = 0;
+
+                        } else {
+
+                            // We'll also set the delay information to the delay the
+                            // bus is experiencing in seconds
+                            $delay = strtotime( $date . ' ' . $time )
+                                   - strtotime( $date . ' ' . $journey[ 'ti' ] );
+
+                        }
 
                     } else {
 
